@@ -6,7 +6,7 @@
 /*   By: jeperez- <jeperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/21 11:35:24 by jeperez-          #+#    #+#             */
-/*   Updated: 2026/09/21 11:35:57 by jeperez-         ###   ########.fr       */
+/*   Updated: 2026/09/22 16:32:12 by jeperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int vctrnew(t_vector *vector, size_t capacity, size_t element_size, void (*del)(
 {
 	if (!vector || element_size == 0)
 		return (ERROR);
+	if (capacity < MINIMUM_VECTOR_SIZE)
+		capacity = MINIMUM_VECTOR_SIZE;
 	vector->element_size = element_size;
 	vector->capacity = capacity;
 	vector->occupied = 0;

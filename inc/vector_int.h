@@ -6,7 +6,7 @@
 /*   By: jeperez- <jeperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/16 15:50:28 by jeperez-          #+#    #+#             */
-/*   Updated: 2026/09/21 11:35:03 by jeperez-         ###   ########.fr       */
+/*   Updated: 2026/09/22 16:28:18 by jeperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@
 
 #ifndef ERROR
 #define ERROR -1
+#endif
+
+#ifndef MINIMUM_VECTOR_SIZE
+#define MINIMUM_VECTOR_SIZE 8
 #endif
 
 #ifndef VECTOR_GROWTH_FACTOR
