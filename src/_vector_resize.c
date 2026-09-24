@@ -6,15 +6,15 @@
 /*   By: jeperez- <jeperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/21 11:35:24 by jeperez-          #+#    #+#             */
-/*   Updated: 2026/09/22 16:29:14 by jeperez-         ###   ########.fr       */
+/*   Updated: 2026/09/24 11:33:54 by jeperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vector_int.h"
+#include "cvector_int.h"
 
-int _vector_resize(t_vector *vector, size_t count) // TO-DO
+int	_vector_resize(t_vector *vector, size_t count)
 {
-	void *new_array;
+	void	*new_array;
 
 	if (count < MINIMUM_VECTOR_SIZE)
 		count = MINIMUM_VECTOR_SIZE;
@@ -25,5 +25,5 @@ int _vector_resize(t_vector *vector, size_t count) // TO-DO
 	free(vector->array);
 	vector->array = new_array;
 	vector->capacity = count;
-	return (SUCCESS); // TO-DO
+	return (SUCCESS);
 }

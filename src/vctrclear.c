@@ -1,24 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vctrnew copy 26.c                                  :+:      :+:    :+:   */
+/*   vctrclear.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeperez- <jeperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/21 11:35:24 by jeperez-          #+#    #+#             */
-/*   Updated: 2026/09/21 11:42:18 by jeperez-         ###   ########.fr       */
+/*   Updated: 2026/09/24 11:34:12 by jeperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vector_int.h"
+#include "cvector_int.h"
 
-int vctrclear(t_vector *vector)
+int	vctrclear(t_vector *vector)
 {
+	size_t	index;
+
 	if (!vctrdata(vector))
 		return (ERROR);
 	if (vector->del)
-		for (size_t i = 0; i < vctrsize(vector); i++)
-			vector->del(_vector_offset(vector, i));
+	{
+		index = 0;
+		while (index < vctrsize(vector))
+		{
+			vector->del(_vector_offset(vector, index));
+			index++;
+		}
+	}
 	vector->occupied = 0;
 	return (SUCCESS);
 }

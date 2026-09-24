@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vctrnew copy 16.c                                  :+:      :+:    :+:   */
+/*   vctrmpty.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeperez- <jeperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/21 11:35:24 by jeperez-          #+#    #+#             */
-/*   Updated: 2026/09/21 11:39:30 by jeperez-         ###   ########.fr       */
+/*   Updated: 2026/09/24 11:33:19 by jeperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vector_int.h"
+#include "cvector_int.h"
 
-bool vctrmpty(const t_vector *vector)
+bool	vctrmpty(const t_vector *vector)
 {
 	return (vctrsize(vector) == 0);
 }

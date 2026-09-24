@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vctrnew copy.c                                     :+:      :+:    :+:   */
+/*   vctrdup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeperez- <jeperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/21 11:35:24 by jeperez-          #+#    #+#             */
-/*   Updated: 2026/09/21 11:36:03 by jeperez-         ###   ########.fr       */
+/*   Updated: 2026/09/24 11:32:55 by jeperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vector_int.h"
+#include "cvector_int.h"
 
-int vctrdup(t_vector *dst, const t_vector *src)
+int	vctrdup(t_vector *dst, const t_vector *src)
 {
 	if (!dst || !src || !src->array)
 		return (ERROR);

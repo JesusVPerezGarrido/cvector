@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vctrnew copy 17.c                                  :+:      :+:    :+:   */
+/*   vctrsize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeperez- <jeperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/21 11:35:24 by jeperez-          #+#    #+#             */
-/*   Updated: 2026/09/21 11:39:40 by jeperez-         ###   ########.fr       */
+/*   Updated: 2026/09/24 11:35:05 by jeperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vector_int.h"
+#include "cvector_int.h"
 
-size_t vctrsize(const t_vector *vector)
+size_t	vctrsize(const t_vector *vector)
 {
 	return (vector->occupied);
 }

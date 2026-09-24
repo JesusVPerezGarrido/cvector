@@ -6,28 +6,42 @@
 /*   By: jeperez- <jeperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/21 11:35:24 by jeperez-          #+#    #+#             */
-/*   Updated: 2026/09/22 16:33:00 by jeperez-         ###   ########.fr       */
+/*   Updated: 2026/09/24 11:38:19 by jeperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vector_int.h"
+#include "cvector_int.h"
 
-int vctrerase_range(t_vector *vector, size_t first, size_t last)
+int	vctrerase_range(t_vector *vector, size_t first, size_t last)
 {
-	size_t range_length;
+	size_t	range_length;
+	size_t	index;
 
-	if (!vctrdata(vector) || first > last || first >= vctrsize(vector) || last >= vctrsize(vector))
+	if (!vctrdata(vector) || first > last
+		|| first >= vctrsize(vector) || last >= vctrsize(vector))
 		return (ERROR);
 	range_length = last - first + 1;
 	if (vector->del)
-		for (size_t i = 0; i < range_length; i++)
-			vector->del(_vector_offset(vector, first + i));
+	{
+		index = 0;
+		while (index < range_length)
+		{
+			vector->del(_vector_offset(vector, first + index));
+			index++;
+		}
+	}
 	if (last + 1 < vctrsize(vector))
-		for (size_t i = 0; i < vctrsize(vector) - last - 1; i++)
-			vctrassign(vector, first + i, vctrat(vector, last + i + 1));
+	{
+		index = 0;
+		while (index < vctrsize(vector) - last - 1)
+		{
+			vctrassign(vector, first + index, vctrat(vector, last + index + 1));
+			index++;
+		}
+	}
 	vector->occupied -= range_length;
 	if (_vector_need_shrink(vector))
-		return (_vector_resize(vector, vector->occupied * VECTOR_GROWTH_FACTOR));
-
+		return (_vector_resize(vector,
+				vector->occupied * VECTOR_GROWTH_FACTOR));
 	return (SUCCESS);
 }

@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vctrnew copy 3.c                                   :+:      :+:    :+:   */
+/*   vctrrm.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeperez- <jeperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/21 11:35:24 by jeperez-          #+#    #+#             */
-/*   Updated: 2026/09/21 11:36:34 by jeperez-         ###   ########.fr       */
+/*   Updated: 2026/09/24 11:35:42 by jeperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vector_int.h"
+#include "cvector_int.h"
 
-int vctrrm(t_vector *vector)
+int	vctrrm(t_vector *vector)
 {
+	size_t	index;
+
 	if (!vector)
 		return (SUCCESS);
 	if (!vctrdata(vector))
 		return (ERROR);
 	if (vector->del)
-		for (size_t i = 0; i < vctrsize(vector); i++)
-			vector->del(vctrdata(vector) + (i * vector->element_size));
+	{
+		index = 0;
+		while (index < vctrsize(vector))
+		{
+			vector->del(_vector_offset(vector, index));
+			index++;
+		}
+	}
 	free(vctrdata(vector));
 	return (SUCCESS);
 }

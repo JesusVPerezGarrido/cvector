@@ -1,41 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector.h                                           :+:      :+:    :+:   */
+/*   cvector.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeperez- <jeperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/16 11:38:33 by jeperez-          #+#    #+#             */
-/*   Updated: 2026/09/21 11:34:43 by jeperez-         ###   ########.fr       */
+/*   Updated: 2026/09/24 11:30:47 by jeperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VECTOR_H
-#define VECTOR_H
+#ifndef CVECTOR_H
+# define CVECTOR_H
 
-#include <stdbool.h>
-#include <stdint.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-
-/*
- * A dynamic array container for homogeneous C objects.
- *
- * The vector owns a contiguous block of memory whose size in bytes is defined by
- * element_size. The occupied field tracks the number of valid elements, while
- * capacity tracks the current allocation size. When del is non-NULL, it is used
- * as a custom destructor for individual elements during removal or destruction
- * of the vector.
- */
-typedef struct s_vector
-{
-	void *array;
-	size_t element_size;
-	size_t capacity;
-	size_t occupied;
-	void (*del)(void *);
-} t_vector;
+# include <stdbool.h>
+# include <stdlib.h>
+# include <stdint.h>
+# include <string.h>
+# include <stdio.h>
+# include "cvector_types.h"
+# include "cvector_int.h"
 
 /*
  * Create and initialize a vector.
@@ -49,7 +33,12 @@ typedef struct s_vector
  * @param del         Optional destructor applied to elements before cleanup.
  * @return           SUCCESS on success, ERROR on failure.
  */
-int vctrnew(t_vector *vector, size_t capacity, size_t element_size, void (*del)(void *));
+int			vctrnew(
+				t_vector *vector,
+				size_t capacity,
+				size_t element_size,
+				void (*del)(void *)
+				);
 
 /*
  * Duplicate an existing vector into a new one.
@@ -61,7 +50,10 @@ int vctrnew(t_vector *vector, size_t capacity, size_t element_size, void (*del)(
  * @param src Source vector to duplicate.
  * @return    SUCCESS on success, ERROR on failure.
  */
-int vctrdup(t_vector *dst, const t_vector *src);
+int			vctrdup(
+				t_vector *dst,
+				const t_vector *src
+				);
 
 /*
  * Copy the contents of one vector into another.
@@ -73,18 +65,23 @@ int vctrdup(t_vector *dst, const t_vector *src);
  * @param src Source vector to copy.
  * @return    SUCCESS on success, ERROR on failure.
  */
-int vctrcpy(t_vector *dst, const t_vector *src);
+int			vctrcpy(
+				t_vector *dst,
+				const t_vector *src
+				);
 
 /*
  * Release every element and free the underlying array.
  *
- * If a destructor was supplied in vctrnew, it is called for each occupied element
- * before the storage is freed.
+ * If a destructor was supplied in vctrnew, it is called for each occupied
+ * element before the storage is freed.
  *
  * @param vector Vector to destroy.
  * @return      SUCCESS on success, ERROR on failure.
  */
-int vctrrm(t_vector *vector);
+int			vctrrm(
+				t_vector *vector
+				);
 
 /*
  * Insert a new value at the end of the vector.
@@ -95,7 +92,10 @@ int vctrrm(t_vector *vector);
  * @param element Pointer to the element to append.
  * @return        SUCCESS on success, ERROR on failure.
  */
-int vctrpush_back(t_vector *vector, const void *element);
+int			vctrpush_back(
+				t_vector *vector,
+				const void *element
+				);
 
 /*
  * Insert a new value at the beginning of the vector.
@@ -106,7 +106,10 @@ int vctrpush_back(t_vector *vector, const void *element);
  * @param element Pointer to the element to prepend.
  * @return        SUCCESS on success, ERROR on failure.
  */
-int vctrpush_front(t_vector *vector, const void *element);
+int			vctrpush_front(
+				t_vector *vector,
+				const void *element
+				);
 
 /*
  * Insert an element at an index.
@@ -119,7 +122,11 @@ int vctrpush_front(t_vector *vector, const void *element);
  * @param element Pointer to the value to insert.
  * @return        SUCCESS on success, ERROR on failure.
  */
-int vctrinsert(t_vector *vector, size_t index, const void *element);
+int			vctrinsert(
+				t_vector *vector,
+				size_t index,
+				const void *element
+				);
 
 /*
  * Replace the value stored at a given index without changing the size.
@@ -129,7 +136,11 @@ int vctrinsert(t_vector *vector, size_t index, const void *element);
  * @param element Pointer to the replacement value.
  * @return        SUCCESS on success, ERROR on failure.
  */
-int vctrassign(t_vector *vector, size_t index, const void *element);
+int			vctrassign(
+				t_vector *vector,
+				size_t index,
+				const void *element
+				);
 
 /*
  * Access an element by index.
@@ -138,7 +149,10 @@ int vctrassign(t_vector *vector, size_t index, const void *element);
  * @param index  Element position.
  * @return       Pointer to the element, or NULL if out of range.
  */
-void *vctrat(t_vector *vector, size_t index);
+void		*vctrat(
+				t_vector *vector,
+				size_t index
+				);
 
 /*
  * Access the first element in the vector.
@@ -146,7 +160,9 @@ void *vctrat(t_vector *vector, size_t index);
  * @param vector Vector to access.
  * @return       Pointer to the first element, or NULL if empty.
  */
-void *vctrfrnt(t_vector *vector);
+void		*vctrfrnt(
+				t_vector *vector
+				);
 
 /*
  * Access the last element in the vector.
@@ -154,7 +170,9 @@ void *vctrfrnt(t_vector *vector);
  * @param vector Vector to access.
  * @return       Pointer to the last element, or NULL if empty.
  */
-void *vctrbck(t_vector *vector);
+void		*vctrbck(
+				t_vector *vector
+				);
 
 /*
  * Return the raw storage buffer.
@@ -162,7 +180,9 @@ void *vctrbck(t_vector *vector);
  * @param vector Vector to query.
  * @return       Pointer to the internal array, or NULL if absent.
  */
-void *vctrdata(t_vector *vector);
+void		*vctrdata(
+				t_vector *vector
+				);
 
 /*
  * Read-only access to an element by index.
@@ -171,7 +191,10 @@ void *vctrdata(t_vector *vector);
  * @param index  Element position.
  * @return       Const pointer to the element, or NULL if out of range.
  */
-const void *vctrat_const(const t_vector *vector, size_t index);
+const void	*vctrat_const(
+				const t_vector *vector,
+				size_t index
+				);
 
 /*
  * Read-only access to the first element.
@@ -179,7 +202,9 @@ const void *vctrat_const(const t_vector *vector, size_t index);
  * @param vector Vector to access.
  * @return       Const pointer to the first element, or NULL if empty.
  */
-const void *vctrfrnt_const(const t_vector *vector);
+const void	*vctrfrnt_const(
+				const t_vector *vector
+				);
 
 /*
  * Read-only access to the last element.
@@ -187,7 +212,9 @@ const void *vctrfrnt_const(const t_vector *vector);
  * @param vector Vector to access.
  * @return       Const pointer to the last element, or NULL if empty.
  */
-const void *vctrbck_const(const t_vector *vector);
+const void	*vctrbck_const(
+				const t_vector *vector
+				);
 
 /*
  * Return the raw read-only storage buffer.
@@ -195,7 +222,9 @@ const void *vctrbck_const(const t_vector *vector);
  * @param vector Vector to query.
  * @return       Const pointer to the internal array, or NULL if absent.
  */
-const void *vctrdata_const(const t_vector *vector);
+const void	*vctrdata_const(
+				const t_vector *vector
+				);
 
 /*
  * Check whether the vector currently holds no elements.
@@ -203,7 +232,9 @@ const void *vctrdata_const(const t_vector *vector);
  * @param vector Vector to inspect.
  * @return       true if occupied == 0, false otherwise.
  */
-bool vctrmpty(const t_vector *vector);
+bool		vctrmpty(
+				const t_vector *vector
+				);
 
 /*
  * Return the number of valid elements currently stored.
@@ -211,7 +242,9 @@ bool vctrmpty(const t_vector *vector);
  * @param vector Vector to inspect.
  * @return       Number of occupied slots.
  */
-size_t vctrsize(const t_vector *vector);
+size_t		vctrsize(
+				const t_vector *vector
+				);
 
 /*
  * Return the number of allocated slots in the backing array.
@@ -219,7 +252,9 @@ size_t vctrsize(const t_vector *vector);
  * @param vector Vector to inspect.
  * @return       Current capacity.
  */
-size_t vctrcpcty(const t_vector *vector);
+size_t		vctrcpcty(
+				const t_vector *vector
+				);
 
 /*
  * The theoretical maximum number of elements, limited by size_t overflow.
@@ -227,7 +262,9 @@ size_t vctrcpcty(const t_vector *vector);
  * @param vector Vector to inspect.
  * @return       Maximum safe element count for this element size.
  */
-size_t vctrmxsize(const t_vector *vector);
+size_t		vctrmxsize(
+				const t_vector *vector
+				);
 
 /*
  * Reserve storage for at least the requested number of elements.
@@ -238,7 +275,10 @@ size_t vctrmxsize(const t_vector *vector);
  * @param new_cap Desired minimum capacity.
  * @return        SUCCESS on success, ERROR on failure.
  */
-int vctrrsrv(t_vector *vector, size_t new_cap);
+int			vctrrsrv(
+				t_vector *vector,
+				size_t new_cap
+				);
 
 /*
  * Reduce the backing storage to the current size.
@@ -249,7 +289,9 @@ int vctrrsrv(t_vector *vector, size_t new_cap);
  * @param vector Vector to shrink.
  * @return       SUCCESS on success, ERROR on failure.
  */
-int vctrshrnk(t_vector *vector);
+int			vctrshrnk(
+				t_vector *vector
+				);
 
 /*
  * Remove all elements from the vector without freeing its storage.
@@ -260,7 +302,9 @@ int vctrshrnk(t_vector *vector);
  * @param vector Vector to clear.
  * @return       SUCCESS on success, ERROR on failure.
  */
-int vctrclear(t_vector *vector);
+int			vctrclear(
+				t_vector *vector
+				);
 
 /*
  * Remove the element at a specific index.
@@ -271,7 +315,10 @@ int vctrclear(t_vector *vector);
  * @param pos    Index of the element to erase.
  * @return       SUCCESS on success, ERROR on failure.
  */
-int vctrerase(t_vector *vector, size_t pos);
+int			vctrerase(
+				t_vector *vector,
+				size_t pos
+				);
 
 /*
  * Remove a contiguous range of elements.
@@ -283,7 +330,11 @@ int vctrerase(t_vector *vector, size_t pos);
  * @param last   Last index of the range to erase.
  * @return       SUCCESS on success, ERROR on failure.
  */
-int vctrerase_range(t_vector *vector, size_t first, size_t last);
+int			vctrerase_range(
+				t_vector *vector,
+				size_t first,
+				size_t last
+				);
 
 /*
  * Remove the last element from the vector.
@@ -293,7 +344,9 @@ int vctrerase_range(t_vector *vector, size_t first, size_t last);
  * @param vector Vector to modify.
  * @return       SUCCESS on success, ERROR on failure.
  */
-int vctrpop_back(t_vector *vector);
+int			vctrpop_back(
+				t_vector *vector
+				);
 
 /*
  * Remove the first element from the vector.
@@ -303,7 +356,9 @@ int vctrpop_back(t_vector *vector);
  * @param vector Vector to modify.
  * @return       SUCCESS on success, ERROR on failure.
  */
-int vctrpop_front(t_vector *vector);
+int			vctrpop_front(
+				t_vector *vector
+				);
 
 /*
  * Change the number of occupied elements.
@@ -317,21 +372,31 @@ int vctrpop_front(t_vector *vector);
  * @param value  Value used to initialize appended entries, or NULL to zero-fill.
  * @return       SUCCESS on success, ERROR on failure.
  */
-int vctrresize(t_vector *vector, size_t count, const void *value);
+int			vctrresize(
+				t_vector *vector,
+				size_t count,
+				const void *value
+				);
 
 /*
  * Print the vector contents using a user-provided element formatter.
  *
- * The callback receives a pointer to each element in the vector and is expected to
- * return the number of characters written, following the semantics of printf-like
- * functions.
+ * The callback receives a pointer to each element in the vector and is expected
+ * to return the number of characters written, following the semantics of 
+ * printf-like functions.
  *
  * @param vector Vector to print.
  * @param print  Callback used to print a single element.
  * @return       characters written on success, ERROR on failure.
  */
-int vctrprint(t_vector *vector, int (*print)(const void *));
+int			vctriter(
+				t_vector *vector,
+				int (*func)(void *)
+				);
 
-#include "vector_int.h"
+int			vctriter_const(
+				const t_vector *vector,
+				int (*func)(const void *)
+				);
 
 #endif

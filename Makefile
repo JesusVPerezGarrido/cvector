@@ -1,7 +1,7 @@
 NAME	:=	cvector.a
 
 CC		:=	cc
-CFLAGS	:=	-Wall -Werror -Wextra
+CFLAGS	:=	-Wall -Werror -Wextra -std=c89
 
 FILES	:=	vctrassign.c \
 			vctrat.c \
@@ -24,7 +24,8 @@ FILES	:=	vctrassign.c \
 			vctrnew.c \
 			vctrpop_back.c \
 			vctrpop_front.c \
-			vctrprint.c \
+			vctriter.c \
+			vctriter_const.c \
 			vctrpush_back.c \
 			vctrpush_front.c \
 			vctrresize.c \
@@ -58,11 +59,11 @@ obj/%.o: src/%.c | obj
 
 clean:
 	@echo "Removing: $(NAME:.a=) object files"
-	@rm -rf obj
+	-@rm -r obj
 
 fclean: clean
 	@echo "Removing: $(NAME)"
-	@rm -f ${NAME}
+	-@rm  ${NAME}
 
 re: fclean all
 
