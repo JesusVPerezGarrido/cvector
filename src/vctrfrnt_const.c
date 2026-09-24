@@ -6,7 +6,7 @@
 /*   By: jeperez- <jeperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/21 11:35:24 by jeperez-          #+#    #+#             */
-/*   Updated: 2026/09/24 11:33:04 by jeperez-         ###   ########.fr       */
+/*   Updated: 2026/09/24 12:14:40 by jeperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 const void	*vctrfrnt_const(const t_vector *vector)
 {
-	if (!vctrdata_const(vector) || vctrmpty(vector))
+	if (!vctrdata_const(vector))
+		return (NULL);
+	if (vctrmpty(vector))
 		return (NULL);
 	return (_vector_offset(vector, 0));
 }

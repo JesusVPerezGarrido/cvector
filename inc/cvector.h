@@ -6,7 +6,7 @@
 /*   By: jeperez- <jeperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/16 11:38:33 by jeperez-          #+#    #+#             */
-/*   Updated: 2026/09/24 11:30:47 by jeperez-         ###   ########.fr       */
+/*   Updated: 2026/09/24 15:25:43 by jeperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -379,21 +379,34 @@ int			vctrresize(
 				);
 
 /*
- * Print the vector contents using a user-provided element formatter.
+ * Apply a callback to each element in the vector.
  *
- * The callback receives a pointer to each element in the vector and is expected
- * to return the number of characters written, following the semantics of 
- * printf-like functions.
+ * Iteration proceeds from index 0 to size - 1 and invokes func once for each
+ * element. If the callback returns ERROR, the iteration stops immediately and
+ * the error is propagated. The callback receives a mutable pointer to the
+ * current element.
  *
- * @param vector Vector to print.
- * @param print  Callback used to print a single element.
- * @return       characters written on success, ERROR on failure.
+ * @param vector Vector to iterate over.
+ * @param func   Callback invoked for each element.
+ * @return       SUCCESS when all elements are processed, ERROR on failure.
  */
 int			vctriter(
 				t_vector *vector,
 				int (*func)(void *)
 				);
 
+/*
+ * Apply a callback to each element in the vector without mutating the data.
+ *
+ * Iteration proceeds from index 0 to size - 1 and invokes func once for each
+ * element. If the callback returns ERROR, the iteration stops immediately and
+ * the error is propagated. The callback receives a read-only pointer to the
+ * current element.
+ *
+ * @param vector Vector to iterate over.
+ * @param func   Callback invoked for each element.
+ * @return       SUCCESS when all elements are processed, ERROR on failure.
+ */
 int			vctriter_const(
 				const t_vector *vector,
 				int (*func)(const void *)

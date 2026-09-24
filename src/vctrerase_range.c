@@ -6,42 +6,62 @@
 /*   By: jeperez- <jeperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/21 11:35:24 by jeperez-          #+#    #+#             */
-/*   Updated: 2026/09/24 11:38:19 by jeperez-         ###   ########.fr       */
+/*   Updated: 2026/09/24 12:30:59 by jeperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cvector_int.h"
 
-int	vctrerase_range(t_vector *vector, size_t first, size_t last)
+static int	_free_elements(t_vector *vector, size_t first, size_t last)
 {
 	size_t	range_length;
 	size_t	index;
 
-	if (!vctrdata(vector) || first > last
-		|| first >= vctrsize(vector) || last >= vctrsize(vector))
-		return (ERROR);
 	range_length = last - first + 1;
 	if (vector->del)
 	{
 		index = 0;
 		while (index < range_length)
 		{
-			vector->del(_vector_offset(vector, first + index));
+			vector->del(vctrat(vector, first + index));
 			index++;
 		}
 	}
-	if (last + 1 < vctrsize(vector))
+	return (SUCCESS);
+}
+
+static void	_move_elements(t_vector *vector, size_t first, size_t last)
+{
+	void	*dst;
+	void	*src;
+	size_t	size;
+
+	size = (vector->occupied - last - 1) * vector->element_size;
+	if (size)
 	{
-		index = 0;
-		while (index < vctrsize(vector) - last - 1)
-		{
-			vctrassign(vector, first + index, vctrat(vector, last + index + 1));
-			index++;
-		}
+		dst = vctrat(vector, first);
+		src = vctrat(vector, last + 1);
+		memmove(dst, src, size);
 	}
-	vector->occupied -= range_length;
+}
+
+int	vctrerase_range(t_vector *vector, size_t first, size_t last)
+{
+	size_t	new_size;
+
+	if (!vctrdata(vector))
+		return (ERROR);
+	if (first > last)
+		return (ERROR);
+	if (last >= vctrsize(vector))
+		return (ERROR);
+	_free_elements(vector, first, last);
+	_move_elements(vector, first, last);
+	vector->occupied -= last - first + 1;
 	if (_vector_need_shrink(vector))
-		return (_vector_resize(vector,
-				vector->occupied * VECTOR_GROWTH_FACTOR));
+	{
+		new_size = vctrsize(vector) * VECTOR_GROWTH_FACTOR;
+		return (_vector_resize(vector, new_size) == ERROR);
+	}
 	return (SUCCESS);
 }

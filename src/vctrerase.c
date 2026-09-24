@@ -6,7 +6,7 @@
 /*   By: jeperez- <jeperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/21 11:35:24 by jeperez-          #+#    #+#             */
-/*   Updated: 2026/09/24 11:38:25 by jeperez-         ###   ########.fr       */
+/*   Updated: 2026/09/24 12:14:00 by jeperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,14 @@
 int	vctrerase(t_vector *vector, size_t pos)
 {
 	size_t	index;
+	size_t	new_size;
 
-	if (!vctrdata(vector) || pos >= vctrsize(vector))
+	if (!vctrdata(vector))
+		return (ERROR);
+	if (pos >= vctrsize(vector))
 		return (ERROR);
 	if (vector->del)
-		vector->del(_vector_offset(vector, pos));
+		vector->del(vctrat(vector, pos));
 	index = pos;
 	while (index < vctrsize(vector) - 1)
 	{
@@ -28,7 +31,9 @@ int	vctrerase(t_vector *vector, size_t pos)
 	}
 	vector->occupied--;
 	if (_vector_need_shrink(vector))
-		return (_vector_resize(vector, vector->occupied
-				* VECTOR_GROWTH_FACTOR));
+	{
+		new_size = vector->occupied * VECTOR_GROWTH_FACTOR;
+		return (_vector_resize(vector, new_size));
+	}
 	return (SUCCESS);
 }
