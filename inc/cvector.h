@@ -6,7 +6,7 @@
 /*   By: jeperez- <jeperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/16 11:38:33 by jeperez-          #+#    #+#             */
-/*   Updated: 2026/09/24 15:25:43 by jeperez-         ###   ########.fr       */
+/*   Updated: 2026/09/28 11:13:09 by jeperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,24 @@ int			vctrpush_back(
 				);
 
 /*
+ * Append a range of elements to the end of the vector.
+ *
+ * element points to count contiguous values, each of the vector's element_size.
+ * The vector grows automatically when needed. A count of zero leaves it
+ * unchanged.
+ *
+ * @param vector  Vector to modify.
+ * @param element First value in the source range.
+ * @param count   Number of values to append.
+ * @return        SUCCESS on success, ERROR on failure.
+ */
+int			vctrpush_back_range(
+				t_vector *vector,
+				const void *element,
+				size_t count
+				);
+
+/*
  * Insert a new value at the beginning of the vector.
  *
  * All existing elements are shifted one slot to the right.
@@ -109,6 +127,24 @@ int			vctrpush_back(
 int			vctrpush_front(
 				t_vector *vector,
 				const void *element
+				);
+
+/*
+ * Prepend a range of elements to the beginning of the vector.
+ *
+ * element points to count contiguous values, each of the vector's element_size.
+ * Existing elements are shifted toward the end. A count of zero leaves the
+ * vector unchanged.
+ *
+ * @param vector  Vector to modify.
+ * @param element First value in the source range.
+ * @param count   Number of values to prepend.
+ * @return        SUCCESS on success, ERROR on failure.
+ */
+int			vctrpush_front_range(
+				t_vector *vector,
+				const void *element,
+				size_t count
 				);
 
 /*
@@ -126,6 +162,26 @@ int			vctrinsert(
 				t_vector *vector,
 				size_t index,
 				const void *element
+				);
+
+/*
+ * Insert a range of elements at an index.
+ *
+ * index must be in the range [0, occupied]. Values at and after index are
+ * shifted toward the end. element points to count contiguous values, each of
+ * the vector's element_size. A count of zero leaves the vector unchanged.
+ *
+ * @param vector  Vector to modify.
+ * @param index   Position at which to insert the range.
+ * @param element First value in the source range.
+ * @param count   Number of values to insert.
+ * @return        SUCCESS on success, ERROR on failure.
+ */
+int			vctrinsert_range(
+				t_vector *vector,
+				size_t index,
+				const void *element,
+				size_t count
 				);
 
 /*

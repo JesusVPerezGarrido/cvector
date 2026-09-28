@@ -6,7 +6,7 @@
 /*   By: jeperez- <jeperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/21 11:35:24 by jeperez-          #+#    #+#             */
-/*   Updated: 2026/09/24 15:22:56 by jeperez-         ###   ########.fr       */
+/*   Updated: 2026/09/28 11:11:05 by jeperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	vctrresize(t_vector *vector, size_t count, const void *value)
 {
 	size_t	growth_size;
-	
+
 	if (!vctrdata(vector))
 		return (ERROR);
 	if (vctrsize(vector) == count)

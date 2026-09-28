@@ -19,6 +19,7 @@ FILES	:=	vctrassign.c \
 			vctrfrnt.c \
 			vctrfrnt_const.c \
 			vctrinsert.c \
+			vctrinsert_range.c \
 			vctrmpty.c \
 			vctrmxsize.c \
 			vctrnew.c \
@@ -27,7 +28,9 @@ FILES	:=	vctrassign.c \
 			vctriter.c \
 			vctriter_const.c \
 			vctrpush_back.c \
+			vctrpush_back_range.c \
 			vctrpush_front.c \
+			vctrpush_front_range.c \
 			vctrresize.c \
 			vctrrm.c \
 			vctrrsrv.c \
